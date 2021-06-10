@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_provider/repository/user_repo.dart';
+import 'package:provider/provider.dart';
 
 import 'di/locator.dart';
 import 'home.dart';
@@ -15,12 +17,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return FutureProvider(
+      create: (context) => locator<UserRepository>().fetchMovieList(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: Home()
       ),
-      home: Home()
     );
   }
 }
